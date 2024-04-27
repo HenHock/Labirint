@@ -6,13 +6,11 @@ namespace Runtime.Services.Save
     [Serializable]
     public class GameProgress
     {
-        public ReactiveProperty<int> m_EarningPoints;
-        public ReactiveProperty<int> m_TraveledDistance;
-
+        public IntReactiveProperty m_CompletedLevels;
+        
         public GameProgress()
         {
-            m_EarningPoints = new();
-            m_TraveledDistance = new();
+            m_CompletedLevels = new(0);
         }
     }
 }

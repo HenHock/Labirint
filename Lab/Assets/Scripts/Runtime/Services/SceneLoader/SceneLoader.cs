@@ -1,5 +1,6 @@
 ﻿using System;
 using Cysharp.Threading.Tasks;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Runtime.Services.SceneLoader
@@ -11,6 +12,8 @@ namespace Runtime.Services.SceneLoader
 
         private async UniTask LoadAsync(int sceneID, Action onLoadedAction)
         {
+            Debug.Log($"{GetType().Name}: Start loading the {sceneID} scene");
+            
             if (SceneManager.GetActiveScene().buildIndex == sceneID)
             {
                 onLoadedAction?.Invoke();
@@ -21,6 +24,7 @@ namespace Runtime.Services.SceneLoader
             await UniTask.WaitUntil(() => asyncOperation.isDone);
             
             onLoadedAction?.Invoke();
+            Debug.Log($"{GetType().Name}: Finished loading the {sceneID} scene");
         }
     }
 }

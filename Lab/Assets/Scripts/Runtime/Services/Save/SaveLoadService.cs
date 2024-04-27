@@ -1,5 +1,4 @@
-﻿using Runtime.Infrastructure.Factories;
-using Runtime.Extensions;
+﻿using Runtime.Extensions;
 using UnityEngine;
 
 namespace Runtime.Services.Save
@@ -9,12 +8,10 @@ namespace Runtime.Services.Save
         private const string GameProgressPrefs = "GameProgress";
         
         private readonly IPersistentProgressService _progressService;
-        private readonly GameFactory _gameFactory;
 
-        public SaveLoadService(IPersistentProgressService progressService, GameFactory gameFactory)
+        public SaveLoadService(IPersistentProgressService progressService)
         {
             _progressService = progressService;
-            _gameFactory = gameFactory;
         }
 
         public void Save()

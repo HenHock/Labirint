@@ -1,5 +1,6 @@
 ﻿using Runtime.Configs;
 using Runtime.Services.Providers;
+using Runtime.Services.Providers.AssetsProvider;
 using UnityEngine;
 using Zenject;
 

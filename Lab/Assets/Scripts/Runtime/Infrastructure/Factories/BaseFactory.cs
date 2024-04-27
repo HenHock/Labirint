@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Runtime.Services.Providers;
+using Runtime.Services.Providers.AssetsProvider;
 using Runtime.Services.Save;
 using UnityEngine;
 using Zenject;
@@ -38,5 +39,7 @@ namespace Runtime.Infrastructure.Factories
             
             return instance;
         }
+
+        public virtual void Cleanup(){}
     }
 }

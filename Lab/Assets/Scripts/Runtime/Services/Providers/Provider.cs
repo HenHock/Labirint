@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Runtime.Configs;
 using UnityEngine;
 
 namespace Runtime.Services.Providers
@@ -7,14 +8,9 @@ namespace Runtime.Services.Providers
     {
         private readonly IDictionary<string, object> _provideObjects = new Dictionary<string, object>();
         
-        /// <summary>
-        /// Method to load all necessary resources.
-        /// </summary>
-        public abstract void Initialize();
-
         public TData Get<TData>(object key = null)
         {
-            var cKey = key == null ? typeof(TData).Name : typeof(TData).Name + key;
+            var cKey = GetKey<TData>(key);
             if (_provideObjects.TryGetValue(cKey, out var value))
                 return (TData)value;
 
@@ -53,5 +49,16 @@ namespace Runtime.Services.Providers
                     _provideObjects.Add(cKey, value);
             }
         }
+
+        protected void Remove<TData>(object key = null)
+        {
+            var cKey = GetKey<TData>(key);
+            if (_provideObjects.ContainsKey(cKey)) 
+                _provideObjects.Remove(cKey);
+            else Debug.LogError($"{GetType().Name}: Couldn't find the object with key({cKey}) to remove it");
+        }
+
+        private string GetKey<TData>(object key) => 
+            key == null ? typeof(TData).Name : typeof(TData).Name + key;
     }
 }

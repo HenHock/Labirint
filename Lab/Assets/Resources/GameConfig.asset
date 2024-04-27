@@ -12,6 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa9b229b8ada426fb0bba3976f33f7b4, type: 3}
   m_Name: GameConfig
   m_EditorClassIdentifier: 
-  m_InitialScene: 0
-  m_MenuScene: 1
-  m_GameplayScene: 2
+  m_BootstrapScene: 0
+  m_GameplayScene: 1

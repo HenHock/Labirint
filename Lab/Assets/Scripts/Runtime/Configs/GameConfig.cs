@@ -9,7 +9,7 @@ namespace Runtime.Configs
     public class GameConfig : ScriptableObject
     {
         public int m_BootstrapScene = 0;
-        public int m_MenuScene = 1;
-        public int m_GameplayScene = 2;
+        // public int m_MenuScene = 1;
+        public int m_GameplayScene = 1;
     }
 }

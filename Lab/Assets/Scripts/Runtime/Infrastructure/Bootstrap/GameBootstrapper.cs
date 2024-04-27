@@ -1,5 +1,7 @@
-﻿using Runtime.Infrastructure.Bootstrap.GameStateMachine.StateFactory;
-using Runtime.Infrastructure.Bootstrap.GameStateMachine.States;
+﻿using Runtime.Infrastructure.Bootstrap.BootStateMachine;
+using Runtime.Infrastructure.Bootstrap.BootStateMachine.StateFactory;
+using Runtime.Infrastructure.Bootstrap.BootStateMachine.States;
+using Runtime.Infrastructure.Bootstrap.ScenesStateMachine.States;
 using Runtime.Services.Save;
 using UnityEngine;
 using Zenject;
@@ -8,12 +10,12 @@ namespace Runtime.Infrastructure.Bootstrap
 {
     public class GameBootstrapper : MonoBehaviour
     {
-        private GameStateMachine.GameStateMachine _gameStateMachine;
+        private GameStateMachine _gameStateMachine;
         private StateFactory _stateFactory;
         private ISaveLoadService _saveLoadService;
 
         [Inject]
-        private void Construct(GameStateMachine.GameStateMachine gameStateMachine, StateFactory stateFactory, ISaveLoadService saveLoadService)
+        private void Construct(GameStateMachine gameStateMachine, StateFactory stateFactory, ISaveLoadService saveLoadService)
         {
             _gameStateMachine = gameStateMachine;
             _stateFactory = stateFactory;
@@ -25,10 +27,7 @@ namespace Runtime.Infrastructure.Bootstrap
             DontDestroyOnLoad(this);
             
             _gameStateMachine.RegisterState(_stateFactory.Create<BootstrapState>());
-            _gameStateMachine.RegisterState(_stateFactory.Create<LoadProgressState>());
-            _gameStateMachine.RegisterState(_stateFactory.Create<LoadMenuSceneState>());
-            _gameStateMachine.RegisterState(_stateFactory.Create<LoadLevelSceneState>());
-            _gameStateMachine.RegisterState(_stateFactory.Create<GameplayLoopState>());
+            _gameStateMachine.RegisterState(_stateFactory.Create<LoadGameplayState>());
             
             _gameStateMachine.Enter<BootstrapState>();
         }
