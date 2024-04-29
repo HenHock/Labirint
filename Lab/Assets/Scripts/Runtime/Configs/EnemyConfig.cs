@@ -13,6 +13,7 @@ namespace Runtime.Configs
 
         [Header("View")]
         [Range(30, 360)]
-        public int m_ViewingAngle = 30;
+        public int m_ViewAngle = 30;
+        public float m_ViewDistance = 5;
     }
 }

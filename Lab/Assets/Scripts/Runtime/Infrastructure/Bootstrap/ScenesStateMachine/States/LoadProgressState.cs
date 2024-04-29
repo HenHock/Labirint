@@ -26,7 +26,7 @@ namespace Runtime.Infrastructure.Bootstrap.ScenesStateMachine.States
             _gameStateMachine.Enter<GameplayLoopState>();
         }
 
-        public void Exit() => Debug.Log("Loaded progress finished");
+        public void Exit() => Debug.Log("Finished load progress");
 
         private void LoadGameProgressOrInitNew() => 
             _progressService.Progress = _saveLoadService.Load() ?? new GameProgress();

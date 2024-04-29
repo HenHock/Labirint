@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using NaughtyAttributes;
+using UnityEngine;
 
 namespace Runtime.Configs
 {
@@ -8,8 +9,8 @@ namespace Runtime.Configs
     [CreateAssetMenu(menuName = "Configs/GameConfig", fileName = "GameConfig", order = 0)]
     public class GameConfig : ScriptableObject
     {
-        public int m_BootstrapScene = 0;
-        // public int m_MenuScene = 1;
-        public int m_GameplayScene = 1;
+        [Scene] public int m_BootstrapScene = 0;
+        // [Scene] public int m_MenuScene = 1;
+        [Scene] public int m_GameplayScene = 1;
     }
 }

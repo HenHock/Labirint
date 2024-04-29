@@ -7,7 +7,7 @@ namespace Runtime.Services.Providers
     public abstract class Provider : IProvider
     {
         private readonly IDictionary<string, object> _provideObjects = new Dictionary<string, object>();
-        
+
         public TData Get<TData>(object key = null)
         {
             var cKey = GetKey<TData>(key);

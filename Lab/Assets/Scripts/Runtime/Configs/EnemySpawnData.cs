@@ -8,5 +8,11 @@ namespace Runtime.Configs
     {
         public EnemyConfig m_Config;
         public Vector3 m_Position;
+
+        public EnemySpawnData(EnemyConfig enemyConfig, Vector3 position)
+        {
+            m_Config = enemyConfig;
+            m_Position = position;
+        }
     }
 }
