@@ -1,4 +1,5 @@
 using System;
+using Cinemachine;
 using Runtime.Configs;
 using UnityEngine;
 
@@ -37,6 +38,7 @@ namespace Runtime.Services.Providers.AssetsProvider
         private void LoadGameplayAssets()
         {
             Add(AssetProviderKey.Hero, Load<GameObject>(AssetsPath.Hero));
+            Add(Load<CinemachineVirtualCamera>(AssetsPath.ForwardCamera));
             //       Add(AssetProviderKey.UIRoot, Load<Transform>(AssetsPath.UIRoot));
         }
 

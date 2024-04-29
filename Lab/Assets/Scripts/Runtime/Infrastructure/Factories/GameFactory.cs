@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Cinemachine;
 using Runtime.Configs;
 using Runtime.Services.Providers;
 using Runtime.Services.Providers.AssetsProvider;
@@ -15,6 +16,8 @@ namespace Runtime.Infrastructure.Factories
         private readonly IPersistentProgressService _progressService;
 
         private LevelConfig _currentLevelConfig;
+        private Transform _hero;
+
         private LevelConfig CurrentLevelConfig => _currentLevelConfig == null
             ? _currentLevelConfig = GetLevelConfig(_progressService.Progress.m_CompletedLevels.Value)
             : _currentLevelConfig;
@@ -38,7 +41,14 @@ namespace Runtime.Infrastructure.Factories
         }
 
         public void CreateHero() => 
-            InstantiateAsset(AssetProviderKey.Hero, CurrentLevelConfig.m_HeroSpawnPoint, Quaternion.identity);
+            _hero = InstantiateAsset(AssetProviderKey.Hero, CurrentLevelConfig.m_HeroSpawnPoint, Quaternion.identity).transform;
+
+        public void CreateForwardCamera()
+        {
+            var forwardCamera = InstantiateAsset<CinemachineVirtualCamera>();
+            forwardCamera.m_Follow = _hero;
+            forwardCamera.m_LookAt = _hero;
+        }
 
         public void CreateEnemies()
         {
