@@ -2,6 +2,7 @@
 using NaughtyAttributes;
 using Runtime.Logic.Gameplay.Spawning;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 namespace Runtime.Configs
@@ -10,9 +11,11 @@ namespace Runtime.Configs
     public class LevelDataCollector : MonoBehaviour
     {
         [Expandable]
+        [InfoBox("To collect, the object must be on the scene", EInfoBoxType.Warning)]
         [SerializeField] private LevelConfig m_LevelConfig;
 
-        [Button]
+
+        [Button(nameof(Collect), EButtonEnableMode.Editor)]
         private void Collect()
         {
             var spawnMarkers = FindObjectsByType<SpawnMarker>(FindObjectsInactive.Exclude, FindObjectsSortMode.None);
@@ -25,9 +28,12 @@ namespace Runtime.Configs
         private void CollectMapData()
         {
             var map = GameObject.FindGameObjectWithTag(TagConfig.Map);
-            
-            m_LevelConfig.m_MapSpawnPoint = map.transform.position;
-            m_LevelConfig.m_MapPrefab = map.gameObject.GetPrefabDefinition().GameObject();
+
+            if (map != null)
+            {
+                m_LevelConfig.m_MapSpawnPoint = map.transform.position;
+                m_LevelConfig.m_MapPrefab = map.gameObject.GetPrefabDefinition().GameObject();
+            }
         }
 
         private void CollectHeroData(SpawnMarker[] spawnMarkers) => 
