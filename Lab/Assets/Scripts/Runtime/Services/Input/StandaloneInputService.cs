@@ -1,19 +1,25 @@
-using System;
-using System.Collections.Generic;
+using Runtime.Configs;
 using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 namespace Runtime.Services.Input
 {
-    public class StandaloneInputService : IInputService
+    public sealed class StandaloneInputService : IInputService
     {
-        public ReactiveCommand<Vector2> OnLeftClickDown { get; private set; } = new();
-        public ReactiveCommand<Vector2> OnLeftClickUp { get; private set; } = new();
-        public ReactiveCommand<Vector2> OnLeftClickDrag { get; private set; } = new();
+        public Vector2 Move => _defaultInputActions.Player.Move.ReadValue<Vector2>();
         
+        public ReactiveCommand<Vector2> OnLeftClickDown { get; } = new();
+        public ReactiveCommand<Vector2> OnLeftClickUp { get; } = new();
+        public ReactiveCommand<Vector2> OnLeftClickDrag { get; } = new();
+
+        private readonly DefaultInputActions _defaultInputActions;
+
         public StandaloneInputService()
         {
+            _defaultInputActions = new DefaultInputActions();
+            _defaultInputActions.Enable();
+            
             RegisterDownHandler();
             RegisterDragHandler();
             RegisterUpHandler();
