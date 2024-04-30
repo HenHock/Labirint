@@ -1,5 +1,6 @@
 using System;
 using Runtime.Configs;
+using Runtime.Configs.Infrastructure;
 using UnityEngine;
 
 namespace Runtime.Logic.Gameplay.Spawning

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Runtime.Configs.Enemy;
+using UnityEngine;
 
 namespace Runtime.Configs
 {

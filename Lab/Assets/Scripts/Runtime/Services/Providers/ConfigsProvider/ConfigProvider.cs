@@ -1,5 +1,6 @@
 ﻿using System;
 using Runtime.Configs;
+using Runtime.Configs.Infrastructure;
 using Runtime.Services.Providers.AssetsProvider;
 
 namespace Runtime.Services.Providers.ConfigsProvider
@@ -26,9 +27,10 @@ namespace Runtime.Services.Providers.ConfigsProvider
             switch (contextType)
             {
                 case ContextType.Boot:
+                    UnloadBootConfigs();
                     break;
                 case ContextType.Gameplay:
-                    
+                    UnloadGameplayConfigs();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(contextType), contextType, null);
@@ -40,15 +42,20 @@ namespace Runtime.Services.Providers.ConfigsProvider
             Add(Load<GameConfig>(ConfigsPath.Game));
         }
 
+        private void UnloadBootConfigs()
+        {
+            Remove<GameConfig>();
+        }
+
         private void LoadGameplayConfigs()
         {
-            Add(Load<GameConfig>(ConfigsPath.Game));
+            Add(Load<HeroConfig>(ConfigsPath.Hero));
             Add(LoadAll<LevelConfig>(ConfigsPath.LevelFolder));
         }
 
         private void UnloadGameplayConfigs()
         {
-            Remove<GameConfig>();
+            Remove<HeroConfig>();
             Remove<LevelConfig[]>();
         }
     }

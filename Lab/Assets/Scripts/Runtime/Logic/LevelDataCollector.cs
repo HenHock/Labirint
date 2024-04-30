@@ -1,11 +1,12 @@
 ﻿using System.Linq;
 using NaughtyAttributes;
+using Runtime.Configs;
+using Runtime.Configs.Enemy;
 using Runtime.Logic.Gameplay.Spawning;
 using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 
-namespace Runtime.Configs
+namespace Runtime.Logic
 {
 #if UNITY_EDITOR
     public class LevelDataCollector : MonoBehaviour
@@ -44,7 +45,7 @@ namespace Runtime.Configs
                 .Where(marker => marker.MarkerType == SpawnMarkerType.Enemy)
                 .Cast<EnemySpawnMarker>()
                 .Where(marker => marker != null)
-                .Select(marker => new EnemySpawnData(marker.Config, marker.transform.position))
+                .Select(marker => new EnemySpawnData(marker.Config, marker.transform.position, marker.Waypoints))
                 .ToArray();
     }
 #endif

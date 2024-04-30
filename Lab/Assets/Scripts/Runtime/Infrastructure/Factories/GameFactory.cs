@@ -1,6 +1,8 @@
 ﻿using System.Linq;
 using Cinemachine;
 using Runtime.Configs;
+using Runtime.Configs.Infrastructure;
+using Runtime.Logic.Gameplay.Enemy.AIStateMachine;
 using Runtime.Services.Providers;
 using Runtime.Services.Providers.AssetsProvider;
 using Runtime.Services.Providers.ConfigsProvider;
@@ -43,7 +45,7 @@ namespace Runtime.Infrastructure.Factories
         public void CreateHero() => 
             _hero = InstantiateAsset(AssetProviderKey.Hero, CurrentLevelConfig.m_HeroSpawnPoint, Quaternion.identity).transform;
 
-        public void CreateForwardCamera()
+        public void CreateFollowCamera()
         {
             var forwardCamera = InstantiateAsset<CinemachineVirtualCamera>();
             forwardCamera.m_Follow = _hero;
@@ -53,7 +55,12 @@ namespace Runtime.Infrastructure.Factories
         public void CreateEnemies()
         {
             foreach (var enemySpawnData in CurrentLevelConfig.m_EnemiesSpawnPoints)
-                InstantiatePrefab(enemySpawnData.m_Config.m_Prefab, enemySpawnData.m_Position, Quaternion.identity);
+            {
+                var enemyInstance = InstantiatePrefab(enemySpawnData.m_Config.m_Prefab, enemySpawnData.m_Position, Quaternion.identity);
+                var enemyAI = enemyInstance.GetComponent<EnemyAI>();
+                
+                enemyAI.Construct(enemySpawnData.m_Config, enemySpawnData.m_Waypoints);
+            }
         }
 
         private LevelConfig GetLevelConfig(int level)

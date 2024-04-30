@@ -1,4 +1,4 @@
-﻿namespace Runtime.Configs
+﻿namespace Runtime.Configs.Infrastructure
 {
     public static class AssetProviderKey
     {

@@ -12,6 +12,12 @@ namespace Runtime.Infrastructure.Bootstrap.BootStateMachine
         private readonly Dictionary<Type, IExitableState> _registeredState = new();
         private readonly ReactiveProperty<IExitableState> _currentState = new();
 
+        protected StateMachine()
+        {
+            Observable.EveryUpdate()
+                .Subscribe(_ => CurrentState.Value.Update());
+        }
+
         public void RegisterState<TState>(TState state) where TState : IExitableState
         {
             var key = typeof(TState);

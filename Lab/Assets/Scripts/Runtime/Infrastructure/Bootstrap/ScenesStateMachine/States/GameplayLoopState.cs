@@ -44,7 +44,7 @@ namespace Runtime.Infrastructure.Bootstrap.ScenesStateMachine.States
             _gameFactory.CreateMap();
             _gameFactory.CreateHero();
             _gameFactory.CreateEnemies();
-            _gameFactory.CreateForwardCamera();
+            _gameFactory.CreateFollowCamera();
         }
     }
 }

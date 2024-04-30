@@ -1,4 +1,4 @@
-﻿namespace Runtime.Configs
+﻿namespace Runtime.Configs.Infrastructure
 {
     public static class AssetsPath
     {
@@ -7,6 +7,6 @@
         public const string MainMenu = "UI/MainMenu";
         public const string GameplayHUD = "UI/GameplayHUD";
         public const string Enemy = "Enemy/Prefabs/BaseEnemy";
-        public const string ForwardCamera = "Camera/Prefabs/ForwardCamera";
+        public const string ForwardCamera = "Camera/Prefabs/FollowCamera";
     }
 }

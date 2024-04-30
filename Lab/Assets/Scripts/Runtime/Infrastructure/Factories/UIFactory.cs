@@ -1,4 +1,5 @@
 ﻿using Runtime.Configs;
+using Runtime.Configs.Infrastructure;
 using Runtime.Services.Providers;
 using Runtime.Services.Providers.AssetsProvider;
 using UnityEngine;

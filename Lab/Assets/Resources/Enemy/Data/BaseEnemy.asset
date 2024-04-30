@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: BaseEnemy
   m_EditorClassIdentifier: 
   m_Prefab: {fileID: 3277310276661634550, guid: f3a270363a3c23b4d9e5c695a4e30bd8, type: 3}
-  m_Speed: 10
+  m_Speed: 4
   m_ViewAngle: 90
   m_ViewDistance: 5

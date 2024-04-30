@@ -1,5 +1,3 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Runtime.Logic.Gameplay.Enemy
@@ -28,14 +26,6 @@ namespace Runtime.Logic.Gameplay.Enemy
             // Calling the vision cone function every frame just so the cone is updated every frame.
             DrawVisionCone(); 
         }
-        
-#if UNITY_EDITOR
-        private void OnDrawGizmos()
-        {
-            Start();
-            DrawVisionCone();
-        }
-#endif
 
         // This method creates the vision cone mesh.
         private void DrawVisionCone()
@@ -78,6 +68,7 @@ namespace Runtime.Logic.Gameplay.Enemy
             _visionConeMesh.Clear();
             _visionConeMesh.vertices = vertices;
             _visionConeMesh.triangles = triangles;
+            
             m_ConeMeshFilter.mesh = _visionConeMesh;
         }
     }

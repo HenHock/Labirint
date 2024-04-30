@@ -1,6 +1,7 @@
 using System;
 using Cinemachine;
 using Runtime.Configs;
+using Runtime.Configs.Infrastructure;
 using UnityEngine;
 
 namespace Runtime.Services.Providers.AssetsProvider
@@ -28,7 +29,7 @@ namespace Runtime.Services.Providers.AssetsProvider
                 case ContextType.Boot:
                     break;
                 case ContextType.Gameplay:
-                    
+                    UnloadGameplayAssets();
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(contextType), contextType, null);
@@ -39,12 +40,12 @@ namespace Runtime.Services.Providers.AssetsProvider
         {
             Add(AssetProviderKey.Hero, Load<GameObject>(AssetsPath.Hero));
             Add(Load<CinemachineVirtualCamera>(AssetsPath.ForwardCamera));
-            //       Add(AssetProviderKey.UIRoot, Load<Transform>(AssetsPath.UIRoot));
         }
 
         private void UnloadGameplayAssets()
         {
             Remove<GameObject>(AssetProviderKey.Hero);
+            Remove<CinemachineVirtualCamera>();
         }
     }
 }
