@@ -3,7 +3,6 @@ using Cinemachine;
 using Runtime.Configs;
 using Runtime.Configs.Infrastructure;
 using Runtime.Logic.Gameplay.Enemy.AIStateMachine;
-using Runtime.Services.Providers;
 using Runtime.Services.Providers.AssetsProvider;
 using Runtime.Services.Providers.ConfigsProvider;
 using Runtime.Services.Save;
@@ -20,7 +19,7 @@ namespace Runtime.Infrastructure.Factories
         private LevelConfig _currentLevelConfig;
         private Transform _hero;
 
-        private LevelConfig CurrentLevelConfig => _currentLevelConfig == null
+        public LevelConfig CurrentLevelConfig => _currentLevelConfig == null
             ? _currentLevelConfig = GetLevelConfig(_progressService.Progress.m_CompletedLevels.Value)
             : _currentLevelConfig;
         

@@ -18,7 +18,7 @@ namespace Runtime.Infrastructure.Bootstrap
             _stateFactory = stateFactory;
         }
 
-        private void Start()
+        private void Awake()
         {
             _sceneStateMachine.RegisterState(_stateFactory.Create<LoadProgressState>());
             _sceneStateMachine.RegisterState(_stateFactory.Create<GameplayLoopState>());

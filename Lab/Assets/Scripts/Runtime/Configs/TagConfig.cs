@@ -2,7 +2,7 @@
 {
     public static class TagConfig
     {
-        public const string PlayerTag = "Player";
+        public const string Player = "Player";
         public const string Map = "Map";
     }
 }

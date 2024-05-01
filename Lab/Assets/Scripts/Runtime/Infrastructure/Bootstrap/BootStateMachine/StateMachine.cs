@@ -26,14 +26,20 @@ namespace Runtime.Infrastructure.Bootstrap.BootStateMachine
 
         public void Enter<TState>() where TState : class, IState
         {
-            TState newState = ChangeState<TState>();
-            newState?.Enter();
+            if (IsNotCurrentState<TState>())
+            {
+                TState newState = ChangeState<TState>();
+                newState?.Enter();
+            }
         }
 
         public void Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadState<TPayload>
         {
-            TState state = ChangeState<TState>();
-            state.Enter(payload);
+            if (IsNotCurrentState<TState>())
+            {
+                TState state = ChangeState<TState>();
+                state.Enter(payload);
+            }
         }
 
         private TState ChangeState<TState>() where TState : class, IExitableState
@@ -48,5 +54,8 @@ namespace Runtime.Infrastructure.Bootstrap.BootStateMachine
 
         private TState GetState<TState>() where TState : class, IExitableState =>
             _registeredState[typeof(TState)] as TState;
+
+        private bool IsNotCurrentState<TState>() where TState : class, IExitableState => 
+            CurrentState.GetType() != typeof(TState);
     }
 }

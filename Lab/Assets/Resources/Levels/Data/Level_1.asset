@@ -12,15 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99836c9451894bb88f6de84be5f48f0c, type: 3}
   m_Name: Level_1
   m_EditorClassIdentifier: 
-  m_MapSpawnPoint: {x: 0, y: 0, z: 0}
   m_MapPrefab: {fileID: 8356062840578147312, guid: 9571e605981f06d45a79dea953f0da32, type: 3}
+  m_MapSpawnPoint: {x: 0, y: 0, z: 0}
+  m_SecondsToCompleteLevel: 120
   m_HeroSpawnPoint: {x: 0, y: 1.044, z: 0}
   m_EnemiesSpawnPoints:
   - m_Config: {fileID: 11400000, guid: 3878f1cc21c11c74ebe99fab4fb4d3b9, type: 2}
-    m_Position: {x: 27.33, y: 1.042, z: 16.6}
-  - m_Config: {fileID: 11400000, guid: 3878f1cc21c11c74ebe99fab4fb4d3b9, type: 2}
-    m_Position: {x: 11.97, y: 1.042, z: 12.48}
-  - m_Config: {fileID: 11400000, guid: 3878f1cc21c11c74ebe99fab4fb4d3b9, type: 2}
-    m_Position: {x: 15.98, y: 1.042, z: 24.06}
-  - m_Config: {fileID: 11400000, guid: 3878f1cc21c11c74ebe99fab4fb4d3b9, type: 2}
-    m_Position: {x: 8.99, y: 1.042, z: -0.21}
+    m_Position: {x: 8.99, y: 1.09, z: -0.21}
+    m_Waypoints:
+    - {x: 8.99, y: 1.09, z: -0.21}
+    - {x: 16.05, y: 1.09, z: -0.21}
+    - {x: 16.05, y: 1.09, z: 4.09}

@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using Runtime.Configs.Enemy;
 using UniRx;
@@ -16,6 +16,7 @@ namespace Runtime.Logic.Gameplay.Enemy.AIStateMachine
 
         [Header("View in Inspector")] 
         [SerializeField, ReadOnly] private string m_CurrentState = nameof(WaitState);
+        [SerializeField, ReadOnly] private bool m_HeroIsDetected;
 
         private Vector3[] _waypoints = Array.Empty<Vector3>();
 
@@ -23,21 +24,12 @@ namespace Runtime.Logic.Gameplay.Enemy.AIStateMachine
 
         public void Construct(EnemyConfig enemyConfig, Vector3[] waypoints)
         {
-            m_Agent.speed = enemyConfig.m_Speed;
             _waypoints = waypoints;
+            m_Agent.speed = enemyConfig.m_Speed;
             
-            SetupVisionCone(enemyConfig);
             CreateStateMachine(waypoints);
-
-            StateMachine.CurrentState
-                .Subscribe(currentState => m_CurrentState = currentState.GetType().Name)
-                .AddTo(this);
-        }
-
-        private void SetupVisionCone(EnemyConfig enemyConfig)
-        {
-            m_VisionCone.m_VisionAngle = enemyConfig.m_ViewAngle;
-            m_VisionCone.m_VisionRange = enemyConfig.m_ViewDistance;
+            SetupVisionCone(enemyConfig);
+            RegisterDebugInfo();
         }
 
         private void CreateStateMachine(Vector3[] waypoints)
@@ -46,8 +38,38 @@ namespace Runtime.Logic.Gameplay.Enemy.AIStateMachine
             
             StateMachine.RegisterState(new WaitState(StateMachine));
             StateMachine.RegisterState(new PatrollingState(StateMachine, m_Agent, waypoints));
+            StateMachine.RegisterState(new ChasingState(StateMachine, m_Agent));
             
             StateMachine.Enter<PatrollingState>();
+        }
+
+        private void SetupVisionCone(EnemyConfig enemyConfig)
+        {
+            m_VisionCone.m_VisionAngle = enemyConfig.m_ViewAngle;
+            m_VisionCone.m_VisionRange = enemyConfig.m_ViewDistance;
+
+            m_VisionCone.OnDetectedHero
+                .Subscribe(OnPlayerDetectedHandler)
+                .AddTo(this);
+        }
+
+        private void RegisterDebugInfo() =>
+            StateMachine.CurrentState
+                .Subscribe(currentState => m_CurrentState = currentState.GetType().Name)
+                .AddTo(this);
+
+        private void OnPlayerDetectedHandler(Transform heroTransform)
+        {
+            if (heroTransform != null && !m_HeroIsDetected)
+            {
+                m_HeroIsDetected = true;
+                StateMachine.Enter<ChasingState, Transform>(heroTransform);
+            }
+            else if (heroTransform == null && m_HeroIsDetected)
+            {
+                m_HeroIsDetected = false;
+                StateMachine.Enter<PatrollingState>();
+            }
         }
 
 #if UNITY_EDITOR
@@ -62,6 +84,7 @@ namespace Runtime.Logic.Gameplay.Enemy.AIStateMachine
                 }
             }
         }
+
 #endif
     }
 }

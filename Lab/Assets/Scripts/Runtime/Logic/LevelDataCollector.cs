@@ -1,9 +1,11 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using NaughtyAttributes;
 using Runtime.Configs;
 using Runtime.Configs.Enemy;
 using Runtime.Logic.Gameplay.Spawning;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 
 namespace Runtime.Logic
@@ -15,7 +17,6 @@ namespace Runtime.Logic
         [InfoBox("To collect, the object must be on the scene", EInfoBoxType.Warning)]
         [SerializeField] private LevelConfig m_LevelConfig;
 
-
         [Button(nameof(Collect), EButtonEnableMode.Editor)]
         private void Collect()
         {
@@ -24,6 +25,8 @@ namespace Runtime.Logic
             CollectMapData();
             CollectHeroData(spawnMarkers);
             CollectEnemiesData(spawnMarkers);
+            
+            EditorUtility.SetDirty(m_LevelConfig);
         }
 
         private void CollectMapData()

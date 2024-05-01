@@ -1,6 +1,4 @@
-﻿using UniRx;
-using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 using IState = Runtime.Infrastructure.Bootstrap.BootStateMachine.States.Interfaces.IState;
 
@@ -26,6 +24,8 @@ namespace Runtime.Logic.Gameplay.Enemy.AIStateMachine
         {
             if (_waypoints.Length <= 1) 
                 _stateMachine.Enter<WaitState>();
+            
+            _agent.SetDestination(Target);
         }
 
         public void Update()

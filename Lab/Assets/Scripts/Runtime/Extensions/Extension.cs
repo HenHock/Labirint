@@ -1,3 +1,4 @@
+using Runtime.Configs;
 using UnityEngine;
 
 namespace Runtime.Extensions
@@ -9,6 +10,8 @@ namespace Runtime.Extensions
 
         public static Vector2 ToVector2(this Vector3 source) => source;
         public static Vector3 ToVector3(this Vector2 source) => source;
+
+        public static bool IsPlayer(this Component source) => source.CompareTag(TagConfig.Player);
         
         public static GameObject FindObjectWithTag(this Component transform, string tag)
         {
