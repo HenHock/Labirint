@@ -1,8 +1,10 @@
 using System;
 using Cinemachine;
-using Runtime.Configs;
 using Runtime.Configs.Infrastructure;
+using Runtime.Logic.Gameplay;
+using Runtime.Logic.UI;
 using UnityEngine;
+using Debug = System.Diagnostics.Debug;
 
 namespace Runtime.Services.Providers.AssetsProvider
 {
@@ -41,6 +43,7 @@ namespace Runtime.Services.Providers.AssetsProvider
             Add(AssetProviderKey.Hero, Load<GameObject>(AssetsPath.Hero));
             Add(AssetProviderKey.UIRoot, Load<Transform>(AssetsPath.UIRoot));
             Add(Load<GameplayHUDDisplay>(AssetsPath.GameplayHUD));
+            Add(Load<FinishZone>(AssetsPath.FinishZone));
             Add(Load<CinemachineVirtualCamera>(AssetsPath.ForwardCamera));
         }
 
