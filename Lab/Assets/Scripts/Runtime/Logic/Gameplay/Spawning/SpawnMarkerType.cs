@@ -3,7 +3,7 @@
     public enum SpawnMarkerType
     {
         Hero,
-        Goal,
+        Finish,
         Enemy
     }
 }

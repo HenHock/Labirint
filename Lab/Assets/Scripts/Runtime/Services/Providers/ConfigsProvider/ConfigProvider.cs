@@ -1,6 +1,7 @@
 ﻿using System;
 using Runtime.Configs;
 using Runtime.Configs.Infrastructure;
+using Runtime.Configs.Level;
 using Runtime.Services.Providers.AssetsProvider;
 
 namespace Runtime.Services.Providers.ConfigsProvider
@@ -50,8 +51,8 @@ namespace Runtime.Services.Providers.ConfigsProvider
         private void LoadGameplayConfigs()
         {
             Add(Load<HeroConfig>(ConfigsPath.Hero));
-            Add(LoadAll<LevelConfig>(ConfigsPath.LevelFolder));
             Add(LoadAll<WindowConfig>(ConfigsPath.WindowsFolder));
+            Add(LoadAll<LevelConfig>(ConfigsPath.LevelsFolder));
         }
 
         private void UnloadGameplayConfigs()

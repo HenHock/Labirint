@@ -2,10 +2,17 @@
 using Cinemachine;
 using Runtime.Configs;
 using Runtime.Configs.Infrastructure;
+using Runtime.Configs.Level;
+using Runtime.Logic;
+using Runtime.Logic.Gameplay;
+using Runtime.Logic.Gameplay.Enemy;
 using Runtime.Logic.Gameplay.Enemy.AIStateMachine;
 using Runtime.Services.Providers.AssetsProvider;
 using Runtime.Services.Providers.ConfigsProvider;
-using Runtime.Services.Save;
+using Runtime.Services.SaveSystem;
+using Runtime.Services.SaveSystem.ProgressService;
+using Runtime.Services.SaveSystem.SaveLoadService;
+using Runtime.Services.WindowService;
 using UnityEngine;
 using Zenject;
 
@@ -17,14 +24,16 @@ namespace Runtime.Infrastructure.Factories
         private readonly IPersistentProgressService _progressService;
 
         private LevelConfig _currentLevelConfig;
-        private Transform _hero;
 
         public LevelConfig CurrentLevelConfig => _currentLevelConfig == null
-            ? _currentLevelConfig = GetLevelConfig(_progressService.Progress.m_CompletedLevels.Value)
+            ? _currentLevelConfig = GetLevelConfig(_progressService.Progress.m_PlayerData.m_CompletedLevels.Value)
             : _currentLevelConfig;
-        
-        public GameFactory(DiContainer container, IAssetProvider assetProvider, IConfigProvider configProvider, IPersistentProgressService progressService) 
-            : base(container, assetProvider)
+
+        public Transform Hero { get; private set; }
+
+        public GameFactory(DiContainer container, IAssetProvider assetProvider, IConfigProvider configProvider, 
+            IPersistentProgressService progressService, ISaveLoadService saveLoadService) 
+            : base(container, assetProvider, saveLoadService)
         {
             _configProvider = configProvider;
             _progressService = progressService;
@@ -32,6 +41,7 @@ namespace Runtime.Infrastructure.Factories
 
         public override void Cleanup()
         {
+            Hero = null;
             _currentLevelConfig = null;
         }
 
@@ -41,14 +51,19 @@ namespace Runtime.Infrastructure.Factories
             InstantiatePrefab(CurrentLevelConfig.m_MapPrefab, CurrentLevelConfig.m_MapSpawnPoint);
         }
 
-        public void CreateHero() => 
-            _hero = InstantiateAsset(AssetProviderKey.Hero, CurrentLevelConfig.m_HeroSpawnPoint, Quaternion.identity).transform;
+        public void CreateHero()
+        {
+            Hero = InstantiateAsset(AssetProviderKey.Hero, CurrentLevelConfig.m_HeroSpawnPoint, Quaternion.identity).transform;
+            SyncUniqueID(Hero.gameObject, CurrentLevelConfig.m_HeroUniqueID);
+        }
+
+        public void CreateFinishZone() => InstantiateAsset<FinishZone>(position: CurrentLevelConfig.m_FinishPosition);
 
         public void CreateFollowCamera()
         {
             var forwardCamera = InstantiateAsset<CinemachineVirtualCamera>();
-            forwardCamera.m_Follow = _hero;
-            forwardCamera.m_LookAt = _hero;
+            forwardCamera.m_Follow = Hero;
+            forwardCamera.m_LookAt = Hero;
         }
 
         public void CreateEnemies()
@@ -57,8 +72,9 @@ namespace Runtime.Infrastructure.Factories
             {
                 var enemyInstance = InstantiatePrefab(enemySpawnData.m_Config.m_Prefab, enemySpawnData.m_Position, Quaternion.identity);
                 var enemyAI = enemyInstance.GetComponent<EnemyAI>();
-                
-                enemyAI.Construct(enemySpawnData.m_Config, enemySpawnData.m_Waypoints);
+
+                enemyAI.Construct(enemySpawnData.m_Config, enemySpawnData.m_Waypoints, Container.Resolve<IWindowService>());
+                SyncUniqueID(enemyInstance, enemySpawnData.m_UniqueID);
             }
         }
 
@@ -74,6 +90,12 @@ namespace Runtime.Infrastructure.Factories
             }
 
             return levelConfigs[level];
+        }
+
+        private void SyncUniqueID(GameObject instance, string uniqueIDValue)
+        {
+            foreach (var uniqueID in instance.GetComponentsInChildren<UniqueID>())
+                uniqueID.m_ID = uniqueIDValue;
         }
     }
 }

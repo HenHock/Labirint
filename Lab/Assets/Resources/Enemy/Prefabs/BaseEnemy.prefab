@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 5987473251973010624}
   - component: {fileID: 6659749219076147414}
   - component: {fileID: 4626028694794658916}
+  - component: {fileID: 5811760068111875170}
+  - component: {fileID: 6426962910001776446}
+  - component: {fileID: 987423419566055388}
   m_Layer: 0
   m_Name: BaseEnemy
   m_TagString: Untagged
@@ -73,7 +76,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Agent: {fileID: 5987473251973010624}
   m_VisionCone: {fileID: 4626028694794658916}
-  m_HeroObserver: {fileID: 4561572883328875785}
   m_CurrentState: WaitState
   m_HeroIsDetected: 0
 --- !u!114 &4626028694794658916
@@ -96,6 +98,45 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_VisionConeResolution: 120
+--- !u!114 &5811760068111875170
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3277310276661634550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b168377e0486447f8fa8319e84980487, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ID: BaseEnemy_c45c60e1-4a33-43ad-9fa5-781c93c1da1e
+--- !u!114 &6426962910001776446
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3277310276661634550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 248c0d64666b4d7bac58b0b746aa9025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &987423419566055388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3277310276661634550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 700b99a3173c466eb24a32407683c4ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_UniqueID: {fileID: 5811760068111875170}
+  m_EnemyAI: {fileID: 6659749219076147414}
 --- !u!1 &5516170762034066116
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,7 +372,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 374d05d152dda704bb8eaaa57cc5ec6c, type: 2}
+  - {fileID: 2100000, guid: 1eb52ff256da09940a985ca5259b39b5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

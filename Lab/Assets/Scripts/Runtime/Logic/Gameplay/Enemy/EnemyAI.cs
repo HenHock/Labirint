@@ -1,12 +1,13 @@
 ﻿using System;
-using Cysharp.Threading.Tasks;
 using NaughtyAttributes;
 using Runtime.Configs.Enemy;
+using Runtime.Logic.Gameplay.Enemy.AIStateMachine;
+using Runtime.Services.WindowService;
 using UniRx;
 using UnityEngine;
 using UnityEngine.AI;
 
-namespace Runtime.Logic.Gameplay.Enemy.AIStateMachine
+namespace Runtime.Logic.Gameplay.Enemy
 {
     public class EnemyAI : MonoBehaviour
     {
@@ -22,25 +23,26 @@ namespace Runtime.Logic.Gameplay.Enemy.AIStateMachine
 
         public EnemyStateMachine StateMachine { get; private set; }
 
-        public void Construct(EnemyConfig enemyConfig, Vector3[] waypoints)
+        public void Construct(EnemyConfig enemyConfig, Vector3[] waypoints, IWindowService windowService)
         {
             _waypoints = waypoints;
             m_Agent.speed = enemyConfig.m_Speed;
             
-            CreateStateMachine(waypoints);
+            CreateStateMachine(waypoints, windowService);
             SetupVisionCone(enemyConfig);
             RegisterDebugInfo();
         }
-
-        private void CreateStateMachine(Vector3[] waypoints)
+        
+        private void CreateStateMachine(Vector3[] waypoints, IWindowService windowService)
         {
             StateMachine = new EnemyStateMachine();
             
             StateMachine.RegisterState(new WaitState(StateMachine));
             StateMachine.RegisterState(new PatrollingState(StateMachine, m_Agent, waypoints));
-            StateMachine.RegisterState(new ChasingState(StateMachine, m_Agent));
+            StateMachine.RegisterState(new ChasingState(StateMachine, m_Agent, windowService));
+            StateMachine.RegisterUpdateMethod(destroyCancellationToken);
             
-            StateMachine.Enter<PatrollingState>();
+            StateMachine.Enter<PatrollingState, int>();
         }
 
         private void SetupVisionCone(EnemyConfig enemyConfig)
@@ -68,11 +70,12 @@ namespace Runtime.Logic.Gameplay.Enemy.AIStateMachine
             else if (heroTransform == null && m_HeroIsDetected)
             {
                 m_HeroIsDetected = false;
-                StateMachine.Enter<PatrollingState>();
+                StateMachine.Enter<PatrollingState, int>();
             }
         }
 
 #if UNITY_EDITOR
+
         private void OnDrawGizmos()
         {
             if (_waypoints.Length > 1)

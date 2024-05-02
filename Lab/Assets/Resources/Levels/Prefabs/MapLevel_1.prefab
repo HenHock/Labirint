@@ -2004,6 +2004,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MarkerType: 0
+  m_UniqueID: {fileID: 0}
 --- !u!1 &316917577267186651
 GameObject:
   m_ObjectHideFlags: 0
@@ -15186,6 +15187,7 @@ GameObject:
   m_Component:
   - component: {fileID: 30975016149306802}
   - component: {fileID: 4408124289943053818}
+  - component: {fileID: 8550814263547479699}
   m_Layer: 0
   m_Name: GoalMarker
   m_TagString: Untagged
@@ -15221,6 +15223,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MarkerType: 1
+  m_UniqueID: {fileID: 8550814263547479699}
+--- !u!114 &8550814263547479699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3142545323323962998}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b168377e0486447f8fa8319e84980487, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ID: Boot_7ee808b0-065c-4e88-8a84-330b9c0d54b2
 --- !u!1 &3159151317877381525
 GameObject:
   m_ObjectHideFlags: 0
@@ -51839,6 +51855,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6324800688651662564, guid: 29718a0daf95c9d48a27a78ea0f816e0, type: 3}
+      propertyPath: m_ID
+      value: Boot_a24b2a45-449b-4d76-99d6-924aef441e45
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -51912,6 +51932,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6324800688651662564, guid: 29718a0daf95c9d48a27a78ea0f816e0, type: 3}
+      propertyPath: m_ID
+      value: Boot_e6e5c202-6ece-4a42-af16-f291a73ee351
+      objectReference: {fileID: 0}
     - target: {fileID: 8419324930034637763, guid: 29718a0daf95c9d48a27a78ea0f816e0, type: 3}
       propertyPath: m_EnemyConfig
       value: 
@@ -51977,6 +52001,10 @@ PrefabInstance:
     - target: {fileID: 1654814194981284007, guid: 29718a0daf95c9d48a27a78ea0f816e0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6324800688651662564, guid: 29718a0daf95c9d48a27a78ea0f816e0, type: 3}
+      propertyPath: m_ID
+      value: Boot_74372ac0-8487-4b2f-b2f6-e938782ad6a8
       objectReference: {fileID: 0}
     - target: {fileID: 8419324930034637763, guid: 29718a0daf95c9d48a27a78ea0f816e0, type: 3}
       propertyPath: m_EnemyConfig

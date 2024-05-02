@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using Runtime.Infrastructure.Bootstrap.BootStateMachine.States.Interfaces;
 using UniRx;
 
@@ -12,11 +14,10 @@ namespace Runtime.Infrastructure.Bootstrap.BootStateMachine
         private readonly Dictionary<Type, IExitableState> _registeredState = new();
         private readonly ReactiveProperty<IExitableState> _currentState = new();
 
-        protected StateMachine()
-        {
+        public void RegisterUpdateMethod(CancellationToken lifeTimeToken) =>
             Observable.EveryUpdate()
-                .Subscribe(_ => CurrentState.Value.Update());
-        }
+                .Subscribe(_ => CurrentState.Value.Update())
+                .AddTo(lifeTimeToken);
 
         public void RegisterState<TState>(TState state) where TState : IExitableState
         {
@@ -26,20 +27,14 @@ namespace Runtime.Infrastructure.Bootstrap.BootStateMachine
 
         public void Enter<TState>() where TState : class, IState
         {
-            if (IsNotCurrentState<TState>())
-            {
-                TState newState = ChangeState<TState>();
-                newState?.Enter();
-            }
+            TState newState = ChangeState<TState>();
+            newState?.Enter();
         }
 
-        public void Enter<TState, TPayload>(TPayload payload) where TState : class, IPayloadState<TPayload>
+        public void Enter<TState, TPayload>(TPayload payload = default) where TState : class, IPayloadState<TPayload>
         {
-            if (IsNotCurrentState<TState>())
-            {
-                TState state = ChangeState<TState>();
-                state.Enter(payload);
-            }
+            TState state = ChangeState<TState>();
+            state.Enter(payload);
         }
 
         private TState ChangeState<TState>() where TState : class, IExitableState
@@ -54,8 +49,5 @@ namespace Runtime.Infrastructure.Bootstrap.BootStateMachine
 
         private TState GetState<TState>() where TState : class, IExitableState =>
             _registeredState[typeof(TState)] as TState;
-
-        private bool IsNotCurrentState<TState>() where TState : class, IExitableState => 
-            CurrentState.GetType() != typeof(TState);
     }
 }

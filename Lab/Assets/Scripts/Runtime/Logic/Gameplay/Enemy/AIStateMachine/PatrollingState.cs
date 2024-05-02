@@ -1,17 +1,18 @@
-﻿using UnityEngine;
+﻿using Runtime.Infrastructure.Bootstrap.BootStateMachine;
+using Runtime.Infrastructure.Bootstrap.BootStateMachine.States.Interfaces;
+using UnityEngine;
 using UnityEngine.AI;
-using IState = Runtime.Infrastructure.Bootstrap.BootStateMachine.States.Interfaces.IState;
 
 namespace Runtime.Logic.Gameplay.Enemy.AIStateMachine
 {
-    public class PatrollingState : IState
+    public class PatrollingState : IPayloadState<int>
     {
-        private readonly EnemyStateMachine _stateMachine;
+        private readonly IStateMachine _stateMachine;
         private readonly NavMeshAgent _agent;
         private readonly Vector3[] _waypoints;
 
-        private Vector3 Target => _waypoints[_waypointIndex];
-        private int _waypointIndex;
+        private Vector3 Target => _waypoints[WaypointIndex];
+        public int WaypointIndex { get; private set; }
 
         public PatrollingState(EnemyStateMachine stateMachine, NavMeshAgent agent, Vector3[] waypoints)
         {
@@ -20,8 +21,10 @@ namespace Runtime.Logic.Gameplay.Enemy.AIStateMachine
             _waypoints = waypoints;
         }
 
-        public void Enter()
+        public void Enter(int startWaypoint = 0)
         {
+            WaypointIndex = startWaypoint;
+            
             if (_waypoints.Length <= 1) 
                 _stateMachine.Enter<WaitState>();
             
@@ -39,10 +42,10 @@ namespace Runtime.Logic.Gameplay.Enemy.AIStateMachine
 
         private void IterateWaypointIndex()
         {
-            _waypointIndex++;
-            if (_waypointIndex == _waypoints.Length)
+            WaypointIndex++;
+            if (WaypointIndex == _waypoints.Length)
             {
-                _waypointIndex = 0;
+                WaypointIndex = 0;
             }
         }
     }

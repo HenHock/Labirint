@@ -1,4 +1,6 @@
 using Runtime.Services.Providers.AssetsProvider;
+using Runtime.Services.SaveSystem;
+using Runtime.Services.SaveSystem.SaveLoadService;
 using UnityEngine;
 using Zenject;
 
@@ -8,12 +10,16 @@ namespace Runtime.Infrastructure.Factories
     {
         protected readonly DiContainer Container;
         protected readonly IAssetProvider AssetProvider;
+        protected readonly ISaveLoadService SaveLoadService;
 
-        protected BaseFactory(DiContainer container, IAssetProvider assetProvider)
+        protected BaseFactory(DiContainer container, IAssetProvider assetProvider, ISaveLoadService saveLoadService)
         {
             Container = container;
             AssetProvider = assetProvider;
+            SaveLoadService = saveLoadService;
         }
+
+        public virtual void Cleanup(){}
 
         protected TComponent InstantiateAsset<TComponent>(object key = null, Vector3 position = default, Quaternion rotation = default, Transform parent = null) where TComponent : Component => 
             InstantiatePrefab(AssetProvider.Get<TComponent>(key), position, rotation, parent);
@@ -25,6 +31,7 @@ namespace Runtime.Infrastructure.Factories
         {
             var instance = Object.Instantiate(prefab, position, rotation, parent);
             Container.InjectGameObject(instance.gameObject);
+            RegisterInSaveSystem(instance.gameObject);
             
             return instance;
         }
@@ -33,10 +40,20 @@ namespace Runtime.Infrastructure.Factories
         {
             var instance = Object.Instantiate(prefab, position, rotation, parent);
             Container.InjectGameObject(instance);
+            RegisterInSaveSystem(instance);
             
             return instance;
         }
 
-        public virtual void Cleanup(){}
+        protected void RegisterInSaveSystem(GameObject instance)
+        {
+            foreach (var progressReader in instance.GetComponentsInChildren<IProgressReader>())
+            {
+                if (progressReader is IProgressWriter progressWriter)
+                    SaveLoadService.ProgressWriters.Add(progressWriter);
+                
+                SaveLoadService.ProgressReaders.Add(progressReader);
+            }
+        }
     }
 }

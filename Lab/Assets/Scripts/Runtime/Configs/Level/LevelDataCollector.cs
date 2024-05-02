@@ -1,14 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using NaughtyAttributes;
-using Runtime.Configs;
 using Runtime.Configs.Enemy;
 using Runtime.Logic.Gameplay.Spawning;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
-namespace Runtime.Logic
+namespace Runtime.Configs.Level
 {
 #if UNITY_EDITOR
     public class LevelDataCollector : MonoBehaviour
@@ -25,6 +23,7 @@ namespace Runtime.Logic
             CollectMapData();
             CollectHeroData(spawnMarkers);
             CollectEnemiesData(spawnMarkers);
+            CollectFinishData(spawnMarkers);
             
             EditorUtility.SetDirty(m_LevelConfig);
         }
@@ -40,16 +39,26 @@ namespace Runtime.Logic
             }
         }
 
-        private void CollectHeroData(SpawnMarker[] spawnMarkers) => 
-            m_LevelConfig.m_HeroSpawnPoint = spawnMarkers.First(marker => marker.MarkerType == SpawnMarkerType.Hero).transform.position;
+        private void CollectHeroData(SpawnMarker[] spawnMarkers)
+        {
+            var heroMarker = GetFirstMarker(spawnMarkers, SpawnMarkerType.Hero);
+            m_LevelConfig.m_HeroSpawnPoint = heroMarker.transform.position;
+            m_LevelConfig.m_HeroUniqueID = heroMarker.UniqueID;
+        }
 
         private void CollectEnemiesData(SpawnMarker[] spawnMarkers) => 
             m_LevelConfig.m_EnemiesSpawnPoints = spawnMarkers
                 .Where(marker => marker.MarkerType == SpawnMarkerType.Enemy)
                 .Cast<EnemySpawnMarker>()
                 .Where(marker => marker != null)
-                .Select(marker => new EnemySpawnData(marker.Config, marker.transform.position, marker.Waypoints))
+                .Select(marker => new EnemySpawnData(marker.Config, marker.transform.position, marker.Waypoints, marker.UniqueID))
                 .ToArray();
+
+        private void CollectFinishData(SpawnMarker[] spawnMarkers) => 
+            m_LevelConfig.m_FinishPosition = GetFirstMarker(spawnMarkers, SpawnMarkerType.Finish).transform.position;
+
+        private SpawnMarker GetFirstMarker(SpawnMarker[] spawnMarkers, SpawnMarkerType markerType) => 
+            spawnMarkers.First(marker => marker.MarkerType == markerType);
     }
 #endif
 }

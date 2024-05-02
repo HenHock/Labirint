@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1654814194981284007}
   - component: {fileID: 8419324930034637763}
+  - component: {fileID: 6324800688651662564}
   m_Layer: 0
   m_Name: EnemyMarker
   m_TagString: Untagged
@@ -46,9 +47,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MarkerType: 2
+  m_UniqueID: {fileID: 6324800688651662564}
   m_EnemyConfig: {fileID: 11400000, guid: 3878f1cc21c11c74ebe99fab4fb4d3b9, type: 2}
   m_VisionCone: {fileID: 0}
   m_PatrollingPath: {fileID: 1602816116205940255}
+--- !u!114 &6324800688651662564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 192534963934075002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b168377e0486447f8fa8319e84980487, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ID: EnemyMarker_060bcde9-28ef-4aae-8ab6-005ce79a723e
 --- !u!1 &6690875042041767093
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,11 +15,31 @@ MonoBehaviour:
   m_MapPrefab: {fileID: 8356062840578147312, guid: 9571e605981f06d45a79dea953f0da32, type: 3}
   m_MapSpawnPoint: {x: 0, y: 0, z: 0}
   m_SecondsToCompleteLevel: 120
+  m_FinishPosition: {x: 35.55, y: 1.044, z: 0}
   m_HeroSpawnPoint: {x: 0, y: 1.044, z: 0}
+  m_HeroUniqueID: 
   m_EnemiesSpawnPoints:
-  - m_Config: {fileID: 11400000, guid: 3878f1cc21c11c74ebe99fab4fb4d3b9, type: 2}
+  - m_UniqueID: Boot_e6e5c202-6ece-4a42-af16-f291a73ee351
+    m_Config: {fileID: 11400000, guid: 3878f1cc21c11c74ebe99fab4fb4d3b9, type: 2}
+    m_Position: {x: 15.98, y: 1.09, z: 24.06}
+    m_Waypoints:
+    - {x: 15.98, y: 1.09, z: 24.06}
+  - m_UniqueID: Boot_a24b2a45-449b-4d76-99d6-924aef441e45
+    m_Config: {fileID: 11400000, guid: 3878f1cc21c11c74ebe99fab4fb4d3b9, type: 2}
     m_Position: {x: 8.99, y: 1.09, z: -0.21}
     m_Waypoints:
     - {x: 8.99, y: 1.09, z: -0.21}
     - {x: 16.05, y: 1.09, z: -0.21}
     - {x: 16.05, y: 1.09, z: 4.09}
+  - m_UniqueID: Boot_74372ac0-8487-4b2f-b2f6-e938782ad6a8
+    m_Config: {fileID: 11400000, guid: 3878f1cc21c11c74ebe99fab4fb4d3b9, type: 2}
+    m_Position: {x: -0.46, y: 1.09, z: 29.36}
+    m_Waypoints:
+    - {x: -0.46, y: 1.09, z: 29.36}
+    - {x: -0.46, y: 1.09, z: 35.79}
+    - {x: 23.490002, y: 1.09, z: 35.79}
+  - m_UniqueID: EnemyMarker_060bcde9-28ef-4aae-8ab6-005ce79a723e
+    m_Config: {fileID: 11400000, guid: 3878f1cc21c11c74ebe99fab4fb4d3b9, type: 2}
+    m_Position: {x: 32.35, y: 1.09, z: 3.01}
+    m_Waypoints:
+    - {x: 32.35, y: 1.09, z: 3.01}

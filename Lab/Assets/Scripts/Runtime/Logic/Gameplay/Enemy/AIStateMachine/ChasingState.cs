@@ -1,19 +1,24 @@
 ﻿using Runtime.Configs.Enemy;
+using Runtime.Infrastructure.Bootstrap.BootStateMachine;
 using UnityEngine;
 using Runtime.Infrastructure.Bootstrap.BootStateMachine.States.Interfaces;
+using Runtime.Logic.UI;
+using Runtime.Services.WindowService;
 using UnityEngine.AI;
 
 namespace Runtime.Logic.Gameplay.Enemy.AIStateMachine
 {
     public class ChasingState : IPayloadState<Transform>
     {
-        private readonly EnemyStateMachine _stateMachine;
+        private readonly IStateMachine _stateMachine;
+        private readonly IWindowService _windowService;
         private readonly NavMeshAgent _agent;
         
         private Transform _target;
 
-        public ChasingState(EnemyStateMachine stateMachine, NavMeshAgent agent)
+        public ChasingState(EnemyStateMachine stateMachine, NavMeshAgent agent, IWindowService windowService)
         {
+            _windowService = windowService;
             _stateMachine = stateMachine;
             _agent = agent;
         }
@@ -26,14 +31,12 @@ namespace Runtime.Logic.Gameplay.Enemy.AIStateMachine
         public void Update()
         {
             if (HasTarget())
-            {
                 if (ReachedTarget())
                 {
-                    // Game over.
-                    Debug.Log("Game over");
+                    Exit();
+                    _windowService.OpenGameOver(false);
                 }
                 else MoveTo(_target.transform.position);
-            }
         }
 
         public void Exit()
@@ -50,5 +53,6 @@ namespace Runtime.Logic.Gameplay.Enemy.AIStateMachine
             (_target.transform.position - _agent.transform.position).sqrMagnitude < 1;
 
         private bool HasTarget() => _target != null;
+
     }
 }
