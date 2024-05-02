@@ -16,11 +16,6 @@ namespace Runtime.Infrastructure.Bootstrap.BootStateMachine.States
             _configProvider = configProvider;
         }
 
-        public void Enter()
-        {
-            _configProvider.LoadConfigs(ContextType.Boot);
-            
-            _gameStateMachine.Enter<LoadGameplayState>();
-        }
+        public void Enter() => _gameStateMachine.Enter<LoadGameplayState>();
     }
 }

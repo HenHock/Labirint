@@ -5,20 +5,14 @@ using UnityEngine.SceneManagement;
 
 namespace Runtime.Services.SceneLoader
 {
-    public class SceneLoader : ISceneLoader
+    public sealed class SceneLoader : ISceneLoader
     {
         public void Load(int sceneID, Action onLoadedAction) => 
             LoadAsync(sceneID, onLoadedAction).Forget();
 
-        private async UniTask LoadAsync(int sceneID, Action onLoadedAction)
+        private async UniTask LoadAsync(int sceneID, Action onLoadedAction = null)
         {
             Debug.Log($"{GetType().Name}: Start loading the {sceneID} scene");
-            
-            if (SceneManager.GetActiveScene().buildIndex == sceneID)
-            {
-                onLoadedAction?.Invoke();
-                return;
-            }
 
             var asyncOperation = SceneManager.LoadSceneAsync(sceneID);
             await UniTask.WaitUntil(() => asyncOperation.isDone);

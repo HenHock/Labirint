@@ -2,7 +2,7 @@
 using Runtime.Infrastructure.Bootstrap.BootStateMachine.StateFactory;
 using Runtime.Infrastructure.Bootstrap.BootStateMachine.States;
 using Runtime.Infrastructure.Bootstrap.ScenesStateMachine.States;
-using Runtime.Services.Save;
+using Runtime.Services.SaveSystem.SaveLoadService;
 using UnityEngine;
 using Zenject;
 
@@ -34,5 +34,4 @@ namespace Runtime.Infrastructure.Bootstrap
 
         private void OnApplicationQuit() => _saveLoadService.Save();
     }
-
 }

@@ -1,4 +1,5 @@
-﻿using Runtime.Infrastructure.Bootstrap.BootStateMachine.StateFactory;
+﻿using Runtime.Infrastructure.Bootstrap.BootStateMachine;
+using Runtime.Infrastructure.Bootstrap.BootStateMachine.StateFactory;
 using Runtime.Infrastructure.Bootstrap.ScenesStateMachine;
 using Runtime.Infrastructure.Bootstrap.ScenesStateMachine.States;
 using UnityEngine;
@@ -8,8 +9,8 @@ namespace Runtime.Infrastructure.Bootstrap
 {
     public class GameplayBootstrapper : MonoBehaviour
     {
-        private SceneStateMachine _sceneStateMachine;
-        private StateFactory _stateFactory;
+        private IStateMachine _sceneStateMachine;
+        private IStateFactory _stateFactory;
 
         [Inject]
         private void Construct(SceneStateMachine sceneStateMachine, StateFactory stateFactory)
@@ -18,10 +19,11 @@ namespace Runtime.Infrastructure.Bootstrap
             _stateFactory = stateFactory;
         }
 
-        private void Awake()
+        private void Start()
         {
             _sceneStateMachine.RegisterState(_stateFactory.Create<LoadProgressState>());
             _sceneStateMachine.RegisterState(_stateFactory.Create<GameplayLoopState>());
+            _sceneStateMachine.RegisterState(_stateFactory.Create<LoadGameplayState>());
             
             _sceneStateMachine.Enter<LoadProgressState>();
         }

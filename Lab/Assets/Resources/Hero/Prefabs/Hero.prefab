@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 4268003782580439968}
   - component: {fileID: -6867160129646572650}
   - component: {fileID: -4228558503136615087}
+  - component: {fileID: -5665178675404961776}
+  - component: {fileID: -1885447146051737501}
   - component: {fileID: 1583257723399419169}
   m_Layer: 6
   m_Name: Hero
@@ -90,7 +92,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a086c581271c4a73bc37f566de7cd235, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RotationSpeed: 69.56
+  m_RotationSpeed: 70
+--- !u!114 &-5665178675404961776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3277310276661634550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b168377e0486447f8fa8319e84980487, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ID: _0523551f-0160-447e-be03-54a017837f59
+--- !u!114 &-1885447146051737501
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3277310276661634550}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 248c0d64666b4d7bac58b0b746aa9025, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1583257723399419169
 MonoBehaviour:
   m_ObjectHideFlags: 0

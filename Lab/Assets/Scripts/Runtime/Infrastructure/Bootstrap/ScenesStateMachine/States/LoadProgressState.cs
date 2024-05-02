@@ -1,19 +1,19 @@
 ﻿using ModestTree;
 using Runtime.Infrastructure.Bootstrap.BootStateMachine;
 using Runtime.Infrastructure.Bootstrap.BootStateMachine.States.Interfaces;
-using Runtime.Services.Providers.ConfigsProvider;
-using Runtime.Services.Save;
+using Runtime.Services.SaveSystem.ProgressService;
+using Runtime.Services.SaveSystem.SaveLoadService;
 using UnityEngine;
 
 namespace Runtime.Infrastructure.Bootstrap.ScenesStateMachine.States
 {
     public sealed class LoadProgressState : IState
     {
-        private readonly StateMachine _gameStateMachine;
+        private readonly IStateMachine _gameStateMachine;
         private readonly IPersistentProgressService _progressService;
         private readonly ISaveLoadService _saveLoadService;
 
-        public LoadProgressState(SceneStateMachine gameStateMachine, IConfigProvider configsProvider, IPersistentProgressService progressService, ISaveLoadService saveLoadService)
+        public LoadProgressState(SceneStateMachine gameStateMachine, IPersistentProgressService progressService, ISaveLoadService saveLoadService)
         {
             _gameStateMachine = gameStateMachine;
             _progressService = progressService;

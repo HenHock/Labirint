@@ -2,6 +2,6 @@
 {
     public interface IPayloadState<in TPayload> : IExitableState
     {
-        void Enter(TPayload payload);
+        void Enter(TPayload payload = default);
     }
 }

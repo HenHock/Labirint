@@ -4,7 +4,8 @@ using Runtime.Infrastructure.Factories;
 using Runtime.Services.Input;
 using Runtime.Services.Providers.AssetsProvider;
 using Runtime.Services.Providers.ConfigsProvider;
-using Runtime.Services.Save;
+using Runtime.Services.SaveSystem.ProgressService;
+using Runtime.Services.SaveSystem.SaveLoadService;
 using Runtime.Services.SceneLoader;
 using UnityEngine;
 using Zenject;
@@ -39,8 +40,8 @@ namespace Runtime.Infrastructure.Installers
 
         private void BingGameStateMachine() => Container
             .BindInterfacesAndSelfTo<GameStateMachine>()
-            .AsSingle()
-            .CopyIntoAllSubContainers();
+            .AsSingle();
+            // .CopyIntoAllSubContainers();
 
         private void BindAssetProvider() => Container
             .BindInterfacesTo<AssetProvider>()
