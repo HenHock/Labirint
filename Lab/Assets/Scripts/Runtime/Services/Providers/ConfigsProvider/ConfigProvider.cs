@@ -51,12 +51,14 @@ namespace Runtime.Services.Providers.ConfigsProvider
         {
             Add(Load<HeroConfig>(ConfigsPath.Hero));
             Add(LoadAll<LevelConfig>(ConfigsPath.LevelFolder));
+            Add(LoadAll<WindowConfig>(ConfigsPath.WindowsFolder));
         }
 
         private void UnloadGameplayConfigs()
         {
             Remove<HeroConfig>();
             Remove<LevelConfig[]>();
+            Remove<WindowConfig[]>();
         }
     }
 }

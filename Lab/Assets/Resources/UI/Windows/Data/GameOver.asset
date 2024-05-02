@@ -1,0 +1,16 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9d52278cc4e4c98bd5e64e4d565bc4f, type: 3}
+  m_Name: GameOver
+  m_EditorClassIdentifier: 
+  m_WindowType: 1
+  m_WindowPrefab: {fileID: 7915810181248362907, guid: ba561531dac891e44bb4c304843438ed, type: 3}

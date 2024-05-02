@@ -39,13 +39,17 @@ namespace Runtime.Services.Providers.AssetsProvider
         private void LoadGameplayAssets()
         {
             Add(AssetProviderKey.Hero, Load<GameObject>(AssetsPath.Hero));
+            Add(AssetProviderKey.UIRoot, Load<Transform>(AssetsPath.UIRoot));
+            Add(Load<GameplayHUDDisplay>(AssetsPath.GameplayHUD));
             Add(Load<CinemachineVirtualCamera>(AssetsPath.ForwardCamera));
         }
 
         private void UnloadGameplayAssets()
         {
+            Remove<Transform>(AssetProviderKey.UIRoot);
             Remove<GameObject>(AssetProviderKey.Hero);
             Remove<CinemachineVirtualCamera>();
+            Remove<GameplayHUDDisplay>();
         }
     }
 }
