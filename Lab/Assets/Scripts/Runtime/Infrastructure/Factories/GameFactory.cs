@@ -30,6 +30,8 @@ namespace Runtime.Infrastructure.Factories
             : _currentLevelConfig;
 
         public Transform Hero { get; private set; }
+        public CinemachineVirtualCamera FollowCamera { get; private set; }
+        public Transform FinishZone { get; private set; }
 
         public GameFactory(DiContainer container, IAssetProvider assetProvider, IConfigProvider configProvider, 
             IPersistentProgressService progressService, ISaveLoadService saveLoadService) 
@@ -41,8 +43,11 @@ namespace Runtime.Infrastructure.Factories
 
         public override void Cleanup()
         {
-            Hero = null;
             _currentLevelConfig = null;
+            
+            FinishZone = null;
+            FollowCamera = null;
+            Hero = null;
         }
 
         public void CreateMap()
@@ -57,13 +62,13 @@ namespace Runtime.Infrastructure.Factories
             SyncUniqueID(Hero.gameObject, CurrentLevelConfig.m_HeroUniqueID);
         }
 
-        public void CreateFinishZone() => InstantiateAsset<FinishZone>(position: CurrentLevelConfig.m_FinishPosition);
+        public void CreateFinishZone() => FinishZone = InstantiateAsset<FinishZone>(position: CurrentLevelConfig.m_FinishPosition).transform;
 
         public void CreateFollowCamera()
         {
-            var forwardCamera = InstantiateAsset<CinemachineVirtualCamera>();
-            forwardCamera.m_Follow = Hero;
-            forwardCamera.m_LookAt = Hero;
+            FollowCamera = InstantiateAsset<CinemachineVirtualCamera>();
+            FollowCamera.m_Follow = Hero;
+            FollowCamera.m_LookAt = Hero;
         }
 
         public void CreateEnemies()

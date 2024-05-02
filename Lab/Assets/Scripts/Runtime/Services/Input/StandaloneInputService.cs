@@ -1,4 +1,3 @@
-using Runtime.Configs;
 using UniRx;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,12 +17,15 @@ namespace Runtime.Services.Input
         public StandaloneInputService()
         {
             _defaultInputActions = new DefaultInputActions();
-            _defaultInputActions.Enable();
+            EnableInputs();
             
             RegisterDownHandler();
             RegisterDragHandler();
             RegisterUpHandler();
         }
+
+        public void EnableInputs() => _defaultInputActions.Enable();
+        public void DisableInputs() => _defaultInputActions.Disable();
 
         private void RegisterUpHandler() =>
             Observable.EveryUpdate()

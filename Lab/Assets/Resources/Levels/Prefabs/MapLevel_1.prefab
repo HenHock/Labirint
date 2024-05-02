@@ -15187,7 +15187,6 @@ GameObject:
   m_Component:
   - component: {fileID: 30975016149306802}
   - component: {fileID: 4408124289943053818}
-  - component: {fileID: 8550814263547479699}
   m_Layer: 0
   m_Name: GoalMarker
   m_TagString: Untagged
@@ -15223,20 +15222,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_MarkerType: 1
-  m_UniqueID: {fileID: 8550814263547479699}
---- !u!114 &8550814263547479699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3142545323323962998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b168377e0486447f8fa8319e84980487, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ID: Boot_7ee808b0-065c-4e88-8a84-330b9c0d54b2
+  m_UniqueID: {fileID: 0}
 --- !u!1 &3159151317877381525
 GameObject:
   m_ObjectHideFlags: 0

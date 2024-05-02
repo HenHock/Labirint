@@ -10,5 +10,8 @@ namespace Runtime.Services.Input
         public ReactiveCommand<Vector2> OnLeftClickDown { get; }
         public ReactiveCommand<Vector2> OnLeftClickUp { get; }
         public ReactiveCommand<Vector2> OnLeftClickDrag { get; }
+
+        public void EnableInputs();
+        public void DisableInputs();
     }
 }

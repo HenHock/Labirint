@@ -1,5 +1,4 @@
-﻿using System;
-using Runtime.Configs;
+﻿using Runtime.Configs;
 using Runtime.Services.Input;
 using Runtime.Services.Providers.ConfigsProvider;
 using UnityEngine;
@@ -9,6 +8,8 @@ namespace Runtime.Logic.Gameplay.Hero
 {
     public class HeroRotation : MonoBehaviour
     {
+        private const int RotationModifier = 20;
+
         [Header("View in Inspector")]
         [SerializeField] private float m_RotationSpeed = 10;
 
@@ -26,7 +27,7 @@ namespace Runtime.Logic.Gameplay.Hero
         private void Update()
         {
             if (_inputService.Move.x != 0)
-                transform.Rotate(Vector3.up, _inputService.Move.x * m_RotationSpeed * Time.deltaTime);
+                transform.Rotate(Vector3.up, _inputService.Move.x * m_RotationSpeed * RotationModifier * Time.deltaTime);
         }
     }
 }

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: HeroConfig
   m_EditorClassIdentifier: 
   m_Speed: 15
-  m_RotationSpeed: 200
+  m_RotationSpeed: 10

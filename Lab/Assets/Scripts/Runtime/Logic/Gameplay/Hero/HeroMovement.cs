@@ -37,7 +37,7 @@ namespace Runtime.Logic.Gameplay.Hero
         private void Move()
         {
             var direction = new Vector3(_inputService.Move.x, 0, _inputService.Move.y);
-            m_Rigidbody.velocity = transform.forward * direction.z * m_Speed * SpeedModifier * Time.fixedDeltaTime;
+            m_Rigidbody.velocity = transform.forward * direction.z * m_Speed * SpeedModifier * Time.deltaTime;
         }
 
         private void Stop()
